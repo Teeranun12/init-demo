@@ -22,7 +22,7 @@ const swaggerDefinition = {
       },
     },
     schemas: {
-      Authentication: {
+      Test: {
         type: "object",
         required: ["username", "password"],
         properties: {
