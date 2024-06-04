@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import asset from "./routes/asset";
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./docs/swagger");
 const express = require("express");
 const app = express();
 
-const port = process.env.PORT || 8000;
+const port = 8000;
 
-app.get("/api", (req: Request, res: Response) => {
-  res.send({ message: "Hello World!" });
-});
+app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use("/users", asset);
+app.use("/asset", asset);
 
 app.listen(port, () => {
-  console.log("Server listening on port 8000");
+  console.log(`Server listening on port ${port}`);
 });

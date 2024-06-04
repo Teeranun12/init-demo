@@ -2,19 +2,21 @@ import express, { Request, Response } from "express";
 
 const router = express.Router();
 
-router.get("/assets", (req: Request, res: Response) => {
-  res.send("Hello World!");
+router.get("/get", (req: Request, res: Response) => {
+  console.log("get asset");
+
+  return res.send("Hello World!");
 });
 
 router.put("/put", (req: Request, res: Response) => {
-  res.send("put");
+  return res.send("put");
 });
 
 router.post("/post", (req: Request, res: Response) => {
-  res.send("post");
+  return res.send("post");
 });
 
 router.patch("/patch", (req: Request, res: Response) => {
-  res.send("patch");
+  return res.send("patch");
 });
 export default router;
