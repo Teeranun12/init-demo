@@ -5,7 +5,7 @@ const client = new Client({
   port: 5432,
   username: "postgres",
   password: "password",
-  database: "init-keycloak",
+  database: "postgres-demo",
 });
 
 export default client;
