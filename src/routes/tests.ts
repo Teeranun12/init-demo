@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-
+import client from "../config/datasource";
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ const router = express.Router();
  *               city:
  *                 type: string
  *               country:
- *                 type: string 
+ *                 type: string
  *     responses:
  *       201:
  *         description: Successful login response.
@@ -43,18 +43,27 @@ const router = express.Router();
  *                 email:
  *                  type: string
  *                 phone:
- *                  type: string 
+ *                  type: string
  */
 router.post("/", (req: Request, res: Response) => {
- 
+  const { usersId, name, age, city, country } = req.body;
+  client.query(
+    `
+    INSERT INTO "user" (first_name, last_name, email) 
+    VALUES ($1, $2, $3)
+  `,
+    ["john2", "doe2", "john2@gmail.com"],
+    (err: any, result: any) => {
+      if (err) {
+        console.log("error = ", err);
+        return res.status(500).send("Database error");
+      }
+      console.log(result, " = result");
 
-    const { usersId, name ,age ,city , country} = req.body;
- 
- 
-
-    const data = `${usersId} , ${name}, ${age}, ${city} , ${country}`
-   
-    return res.send(data);
+      const data = `${usersId}, ${name}, ${age}, ${city}, ${country}`;
+      return res.send(data);
+    }
+  );
 });
 
 /**
@@ -65,7 +74,7 @@ router.post("/", (req: Request, res: Response) => {
  *       - Example
  *     summary: Get a list of users
  *     description: Retrieve a list of users from the database.
-*     responses:
+ *     responses:
  *       201:
  *         description: Successful login response.
  *         content:
@@ -82,21 +91,32 @@ router.post("/", (req: Request, res: Response) => {
  *                 city:
  *                  type: string
  *                 country:
- *                  type: string 
+ *                  type: string
  *       404:
  *         description: Not Found
  *
  */
 router.get("/", (req: Request, res: Response) => {
-    const data = {
-        "usersId": 20,
-        "name": "John",
-        "age": 30,
-        "city": "New York",
-        "country": "USA"
+  client.query(`SELECT * FROM "user"`, (err: any, result: any) => {
+    if (err) {
+      console.log("error = ", err);
+      return res.status(500).send("Database error");
     }
+    console.log(result.rows, " = result");
+
+    const data = {
+      users: result.rows,
+      additionalInfo: {
+        usersId: 20,
+        name: "John",
+        age: 30,
+        city: "New York",
+        country: "USA",
+      },
+    };
 
     return res.send(data);
+  });
 });
 
 export default router;

@@ -2,10 +2,6 @@ import express, { Request, Response } from "express";
 
 const router = express.Router();
 
-//TODO: add swagger
-/**
- *
- */
 router.get("/", (req: Request, res: Response) => {
   const data = {
     usersId: 20,
@@ -18,15 +14,9 @@ router.get("/", (req: Request, res: Response) => {
   return res.send(data);
 });
 
-//TODO: add swagger
-
 router.post("/post", (req: Request, res: Response) => {
-  //TODO : add new user
-
   return res.send("post");
 });
-
-//TODO: add swagger
 
 router.patch("/patch", (req: Request, res: Response) => {
   const data = {
@@ -39,7 +29,6 @@ router.patch("/patch", (req: Request, res: Response) => {
 
   console.log(data);
 
-  //TODO: add update Data
   return res.send("patch");
 });
 export default router;
