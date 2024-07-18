@@ -18,15 +18,11 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               usersId:
- *                 type: number
- *               name:
+ *               first_name:
  *                 type: string
- *               age:
- *                 type: number
- *               city:
+ *               last_name:
  *                 type: string
- *               country:
+ *               email:
  *                 type: string
  *     responses:
  *       201:
@@ -36,9 +32,9 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 firstname:
+ *                 first_name:
  *                  type: string
- *                 lastname:
+ *                 last_name:
  *                  type: string
  *                 email:
  *                  type: string
@@ -46,13 +42,14 @@ const router = express.Router();
  *                  type: string
  */
 router.post("/", (req: Request, res: Response) => {
-  const { usersId, name, age, city, country } = req.body;
+  const { first_name, last_name, email } = req.body;
+
   client.query(
     `
     INSERT INTO "user" (first_name, last_name, email) 
     VALUES ($1, $2, $3)
-  `,
-    ["john2", "doe2", "john2@gmail.com"],
+    `,
+    [first_name, last_name, email],
     (err: any, result: any) => {
       if (err) {
         console.log("error = ", err);
@@ -60,7 +57,7 @@ router.post("/", (req: Request, res: Response) => {
       }
       console.log(result, " = result");
 
-      const data = `${usersId}, ${name}, ${age}, ${city}, ${country}`;
+      const data = { first_name, last_name, email };
       return res.send(data);
     }
   );
