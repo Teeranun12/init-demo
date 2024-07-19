@@ -31,12 +31,12 @@ const router = express.Router();
  */
 router.get("/", (req: Request, res: Response) => {
   const data = {
-    "usersId": 20,
-    "name": "John",
-    "age": 30,
-    "city": "New York",
-    "country": "USA"
-}
+    usersId: 20,
+    name: "John",
+    age: 30,
+    city: "New York",
+    country: "USA",
+  };
 
   return res.json(data);
 });
@@ -88,70 +88,20 @@ router.get("/", (req: Request, res: Response) => {
  */
 
 router.post("/post", (req: Request, res: Response) => {
-  return res.json(req.body);
+  return res.send("post");
 });
 
-
-/**
- * @swagger
- * /asset/patch:
- *   patch:
- *     tags:
- *       - User
- *     summary: Update user information
- *     description: Updates the information of an existing user
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               usersId:
- *                 type: integer
- *               first_name:
- *                 type: string
- *               last_name:
- *                 type: string
- *               city:
- *                 type: string
- *               country:
- *                 type: string
- *     responses:
- *       200:
- *         description: User information updated successfully
- *         content:
- *           schema:
- *               type: object
- *               properties:
- *                 first_name:
- *                  type: string
- *                 last_name:
- *                  type: string
- *                 city:
- *                  type: string
- *                 country:
- *                  type: string 
- */
-
-// router.patch("/patch", (req: Request, res: Response) => {
-//   const data = {
-//     "usersId": 20,
-//     "first_name": "John",
-//     "last_name": "doe",
-//     "city": "New York",
-//     "country": "USA"
-//   }
-
-//   console.log(data)
-
-//   //TODO: add update Data
-//   return res.json(req.body);
-// });
-// export default router;
-
 router.patch("/patch", (req: Request, res: Response) => {
-  console.log("Received data:", req.body);  // Add this for debugging
-  return res.json(req.body);  
+  const data = {
+    usersId: 20,
+    first_name: "John",
+    last_name: "doe",
+    city: "New York",
+    country: "USA",
+  };
+
+  console.log(data);
+
+  return res.send("patch");
 });
 export default router;
