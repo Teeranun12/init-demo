@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-app.use("/asset", user);
+app.use("/user", user);
 app.use("/tests", tests);
 
 app.listen(port, () => {
