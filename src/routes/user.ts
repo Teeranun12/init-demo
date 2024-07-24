@@ -20,7 +20,6 @@ router.post("/post", (req: Request, res: Response) => {
   return res.send("post");
 });
 
-//Comment Cast2
 router.patch("/patch", (req: Request, res: Response) => {
   const data = {
     usersId: 20,
